@@ -1,20 +1,38 @@
-SnoutSketch - Overview
-SnoutSketch is a webapp that turns your dog’s nose into a unique piece of art. It’s perfect for dog lovers who want to celebrate their pup’s individuality and tech enthusiasts who dig image processing. You upload a close-up photo of your dog’s snout, and the app analyzes its ridges—those patterns are as unique as fingerprints—to create a custom, one-of-a-kind artwork. Choose from four styles: Vibrant (bright, bold colors), Surreal (dreamy, warped designs), Geometric (clean, modern shapes), or Line Art (sleek, sketch-like lines). It’s built with React for the frontend, FastAPI for the backend, OpenCV for image analysis, and Pillow for resizing outputs. Whether you’re here for the fun of seeing your dog’s nose as art or the nitty-gritty of how it works, SnoutSketch has you covered!
+# SnoutSketch
 
-What It Does
-For the non-technical crowd, SnoutSketch is a blast—it takes something simple like your dog’s nose and turns it into a masterpiece you can frame, share, or just smile at. Imagine snapping a pic of your pup’s snout and getting back a colorful explosion or an elegant line drawing that’s totally unique to them. You upload the photo, pick a style, and download the art in 1080p or 4K. It’s like unlocking your dog’s hidden artist vibes! Technically, it’s a cool mix of tools: the app grayscales your image, runs Canny edge detection to find the nose ridges, pulls out contour points, and maps them into art based on the style you choose. Each style tweaks the output differently—Vibrant uses random bright colors, Surreal plays with funky patterns, and so on.
+SnoutSketch is a webapp that transforms close-up images of dog noses into unique, AI-generated artwork. Using the ridges and patterns of a dog's nose (like a fingerprint!), it creates one-of-a-kind pieces in various styles. Originally built with basic programmatic art, it now leverages **Neural Style Transfer (NST)** for wild, crazy outputs that turn your pup’s snout into something extraordinary.
 
-How to Set It Up
-Getting SnoutSketch running is straightforward. You’ll need Node.js (v16 or higher), Python (3.9 or higher), and Git installed. Clone the repo with "git clone https://github.com/yourusername/SnoutSketch.git" and move into the folder with "cd SnoutSketch". For the frontend, go "cd frontend" and run "npm install" to grab the React dependencies. For the backend, go "cd ../backend" and run "pip install fastapi uvicorn opencv-python pillow python-multipart" to set up FastAPI and the image processing libraries. That’s it—dependencies are ready!
+## Features
+- **Upload**: Drop a close-up dog nose image.
+- **Styles**: Choose from basic styles (pixel-based) or enhanced, AI-driven styles.
+- **Download**: Get your artwork in low (1080p) and high (4K) resolutions.
 
-How to Run It
-Start the backend first: go "cd backend" and run "python main.py". It’ll fire up on http://localhost:8000. Then, in a new terminal, start the frontend with "cd frontend" and "npm start"—it’ll open at http://localhost:3000. Head to that URL in your browser, upload a close-up dog nose photo, pick one of the four styles, and hit "Generate Art". You’ll get download links for your pup’s artwork in two resolutions. Keep both terminals running to use the app!
+## Current Enhancements (March 2025)
+We’ve upgraded SnoutSketch with **crazier NST styles** using a pre-trained VGG19 model. These enhancements take your nose image and blend it with wild style images for insane, artistic results:
+- **Nebula Frenzy** (replaces Cosmic Canine): Nose ridges explode into a neon-charged cosmic nebula—think psychedelic chaos with glowing swirls.
+- **Scream of the Void** (replaces Echoes of the Snout): A surreal, warped nightmare—your nose melts into a glitchy, howling void inspired by "The Scream."
+- **Digital Meltdown** (replaces Snout Circuit): A cyberpunk fever dream—nose lines fry into a neon-drenched circuit overload.
+- **Mad Weaver’s Labyrinth** (replaces Nose Tapestry): A frantic, dripping scribble-fest—nose lost in a chaotic Pollock-style weave.
 
-Technical Details
-The frontend is React, handling the UI where you upload photos and see results—it’s smooth and user-friendly. The backend uses FastAPI to manage requests, like receiving your image and sending back art URLs. OpenCV does the heavy lifting: it processes the image, detects edges (those nose ridges), and extracts points from contours. Pillow then takes the generated art and scales it to 1080p or 4K for downloads. Right now, art generation is basic—plotting ridge points as colored pixels or lines—but it’s solid for an MVP. The styles (Vibrant, Surreal, Geometric, Line Art) each apply different rules to those points, like color randomness or line toggling.
+These styles use higher style weights (2000–5000), custom VGG19 layers, and more iterations for maximum madness, all while keeping the nose’s unique ridges as the base.
 
-Future Plans
-This is an MVP, so there’s room to grow! Plans include real-time previews (see the art before downloading), custom options (pick your own colors or tweak intensity), and a “share to X” feature to post your pup’s art online. The art could get fancier too—think connecting points with dynamic lines, adding shapes, or layering effects. It’s all about making SnoutSketch more fun and flexible.
+## Setup
+### Prerequisites
+- **Node.js**: For the React frontend (LTS recommended, e.g., 20.x).
+- **Python 3.9+**: For the FastAPI backend.
+- **Dependencies**:
+  - Frontend: `npm install` in `frontend/`.
+  - Backend: `pip install fastapi uvicorn opencv-python pillow python-multipart torch torchvision` in `backend/`.
 
-License and Contact
-SnoutSketch is under the MIT license—use it, tweak it, share it, just give a nod to the project. I built this with a love for dogs and a passion for coding. 
+### Project Structure
+dog-nose-art/
+├── frontend/
+│   ├── src/
+│   │   ├── App.js      # React UI with style dropdown
+│   │   └── App.css     # Basic styling
+├── backend/
+│   ├── main.py         # FastAPI server
+│   ├── process.py      # NST and basic art generation
+│   └── styles/         # Style images (e.g., nebula_frenzy.jpg)
+└── README.md           # This file
+
